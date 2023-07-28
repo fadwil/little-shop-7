@@ -1,7 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Merchant Dashboard', type: :feature do
+    test_csv_load
     before(:each) do
+        @merchant_1 = Merchant.first
 
     end
     describe 'As a Merchant' do
@@ -21,7 +23,7 @@ RSpec.describe 'Merchant Dashboard', type: :feature do
                     expect(page).to have_link("My Items")
                     expect(page).to have_link("My Invoices")
                     click_link "My Items"
-                    expect(current_path).to be("/merchants/#{@merchant_1.id}/items")
+                    expect(current_path).to eq("/merchants/#{@merchant_1.id}/items")
                 end
 
                 visit merchant_dashboard_index_path(@merchant_1.id)
@@ -30,7 +32,7 @@ RSpec.describe 'Merchant Dashboard', type: :feature do
                     expect(page).to have_link("My Items")
                     expect(page).to have_link("My Invoices")
                     click_link "My Invoices"
-                    expect(current_path).to be("/merchants/#{@merchant_1.id}/invoices")
+                    expect(current_path).to eq("/merchants/#{@merchant_1.id}/invoices")
                 end
             end
             
