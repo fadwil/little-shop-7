@@ -1,5 +1,5 @@
 id,item_id,invoice_id,quantity,unit_price,status,created_at,updated_at
-1,1,1,5,13635,packaged,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC
+1,1,1,5,13635,shipped,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC
 2,2,1,9,23324,pending,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC
 3,3,1,8,34873,packaged,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC
 4,4,1,3,2196,packaged,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC

@@ -8,4 +8,4 @@ id,customer_id,status,created_at,updated_at
 7,3,in progress,2012-03-07 21:54:10 UTC,2012-03-07 21:54:10 UTC
 8,4,completed,2012-03-13 16:54:10 UTC,2012-03-13 16:54:10 UTC
 9,5,cancelled,2012-03-07 12:54:10 UTC,2012-03-07 12:54:10 UTC
-10,5,cancelled,2012-03-06 21:54:10 UTC,2012-03-06 21:54:10 UTC
+10,5,cancelled,2012-03-06 21:54:10 UTC,2012-03-06 21:54:10 UT

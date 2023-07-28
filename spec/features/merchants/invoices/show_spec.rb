@@ -2,12 +2,12 @@ require "rails_helper"
 
 RSpec.describe "merchants/:merchant_id/invoices/:invoice_id show page" do
   before(:each) do
-    Customer.destroy_all
     InvoiceItem.destroy_all
+    Transaction.destroy_all
     Invoice.destroy_all
     Item.destroy_all
+    Customer.destroy_all
     Merchant.destroy_all
-    Transaction.destroy_all
 
     10.times do
       Customer.create!(
