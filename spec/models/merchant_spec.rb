@@ -25,8 +25,7 @@ RSpec.describe Merchant, type: :model do
       invoice_item_2 = InvoiceItem.create!(item_id: item_2.id, invoice_id: invoice.id, quantity: 1, unit_price: item_2.unit_price)
       invoice_item_3 = InvoiceItem.create!(item_id: item_3.id, invoice_id: invoice.id, quantity: 4, unit_price: item_3.unit_price)
       invoice_item_4 = InvoiceItem.create!(item_id: item_4.id, invoice_id: invoice.id, quantity: 7, unit_price: item_4.unit_price)
-      require 'pry'; binding.pry
-    #   expect(merchant.items_sold_in_invoice(invoice)).to eq([item_1, item_2, item_3])
+      expect(merchant.items_sold_in_invoice(invoice)).to eq([item_1, item_2, item_3])
     end
   end
 end
