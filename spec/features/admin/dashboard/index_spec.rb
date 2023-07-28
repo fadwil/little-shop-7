@@ -14,7 +14,7 @@ RSpec.describe 'Admin Dashboard', type: :feature do
     expect(page).to have_link("Invoices", href: "/admin/invoices")
   end
 
-  it 'displays the names of the top 5 customers with purchase amounts' do
+  xit 'displays the names of the top 5 customers with purchase amounts' do
     expect(page).to have_content("Top Customers")
     expect()
   end

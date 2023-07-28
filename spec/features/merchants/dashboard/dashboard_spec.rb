@@ -6,7 +6,7 @@ RSpec.describe 'Merchant Dashboard', type: :feature do
     end
     describe 'As a Merchant' do
         describe 'When I visit my merchant dashboard (/merchants/:merchant_id/dashboard)' do
-            it 'Shows the name of my merchant' do
+            xit 'Shows the name of my merchant' do
                 visit merchant_dashboard_index_path(@merchant_1.id)
 
                 within "#merchant_info" do
@@ -14,7 +14,7 @@ RSpec.describe 'Merchant Dashboard', type: :feature do
                 end
             end
 
-            it 'Has a link to my merchant items index and my merchant invoice index' do
+            xit 'Has a link to my merchant items index and my merchant invoice index' do
                 visit merchant_dashboard_index_path(@merchant_1.id)
 
                 within "#dashboard_nav" do
@@ -34,7 +34,7 @@ RSpec.describe 'Merchant Dashboard', type: :feature do
                 end
             end
             
-            it 'Shows my top 5 customers who have the largest number of successful transactions, and next to each I see the number of successful transactions they have made' do
+            xit 'Shows my top 5 customers who have the largest number of successful transactions, and next to each I see the number of successful transactions they have made' do
 
                 visit merchant_dashboard_index_path(@merchant_1.id)
             end

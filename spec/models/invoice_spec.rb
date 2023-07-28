@@ -10,12 +10,6 @@ RSpec.describe Invoice, type: :model do
 
   describe "instance methods" do
     before(:each) do
-      Customer.destroy_all
-      InvoiceItem.destroy_all
-      Invoice.destroy_all
-      Item.destroy_all
-      Merchant.destroy_all
-      Transaction.destroy_all
   
       10.times do
         Customer.create!(
