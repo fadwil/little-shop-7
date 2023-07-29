@@ -3,11 +3,6 @@ require "rails_helper"
 RSpec.describe Merchant, type: :model do
   test_csv_load
 
-  before(:each) do
-    ActiveRecord::Base.connection.reset_pk_sequence!('items')
-    ActiveRecord::Base.connection.reset_pk_sequence!('invoice_items')
-  end
-
   describe "relationships" do
     it { should have_many :items }
     it { should have_many(:invoices).through(:items) }
@@ -22,8 +17,7 @@ RSpec.describe Merchant, type: :model do
     it "returns only the items associated with the specific merchant for a specific invoice" do
       merchant = Merchant.first
       merchant_2 = Merchant.last
-      customer = Customer.all.sample
-      invoice = Invoice.create!(customer_id: customer.id, status: "completed")
+      invoice = Invoice.create!(customer_id: 3, status: "completed")
       item_1 = merchant.items.create!(name: "Pogo stick", unit_price: 25000)
       item_2 = merchant.items.create!(name: "Hula hoop", unit_price: 15000)
       item_3 = merchant.items.create!(name: "Boomerang", unit_price: 10000)
@@ -38,8 +32,7 @@ RSpec.describe Merchant, type: :model do
     it "returns the total revenue of the merchants items for a given invoice" do
       merchant = Merchant.first
       merchant_2 = Merchant.last
-      customer = Customer.all.sample
-      invoice = Invoice.create!(customer_id: customer.id, status: "completed")
+      invoice = Invoice.create!(customer_id: 3, status: "completed")
       item_1 = merchant.items.create!(name: "Pogo stick", unit_price: 25000)
       item_2 = merchant.items.create!(name: "Hula hoop", unit_price: 15000)
       item_3 = merchant.items.create!(name: "Boomerang", unit_price: 10000)

@@ -2,12 +2,6 @@ require "rails_helper"
 
 RSpec.describe "merchants/:merchant_id/invoices/:invoice_id show page" do
   test_csv_load
-
-  before(:each) do
-    ActiveRecord::Base.connection.reset_pk_sequence!('items')
-    ActiveRecord::Base.connection.reset_pk_sequence!('invoice_items')
-  end
-  
   it "shows invoice ID, invoice status, formatted created_at date, and customer first and last name" do
     merchant = Merchant.first
     merchant_2 = Merchant.last
