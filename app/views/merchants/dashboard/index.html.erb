@@ -6,9 +6,19 @@
 <%= link_to "My Invoices", merchant_invoices_path %>
 </section>
 <section id="dashboard_stats">
-<% Customer.top_customers_for_merchant(@merchant.id).each do |customer| %>
+<% @merchant.top_customers.each do |customer| %>
     <br>
     <%= customer.first_name + " " + customer.last_name + ":  " + customer.successful_transactions_count.to_s %>
     <br>
+<% end %>
+</section>
+<section id="dashboard_items_status">
+<% @merchant.items_status.each do |item| %>
+    <section id="item_<%= item.id %>">
+    <br>
+    <%= item.name   %>
+    <%= link_to "#{item.invoice_id}", "/merchants/#{@merchant.id}/invoices/#{item.invoice_id}" %>
+    <%= item.invoice_created.strftime("%A, %B %d, %Y") %>
+    </section>
 <% end %>
 </section>

@@ -1,7 +1,7 @@
 class CreateInvoices < ActiveRecord::Migration[7.0]
   def change
     create_table :invoices do |t|
-      t.string :status, default: 0
+      t.integer :status, default: 0
 
       t.timestamps
     end
