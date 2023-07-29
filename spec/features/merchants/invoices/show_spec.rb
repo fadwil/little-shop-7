@@ -36,10 +36,10 @@ RSpec.describe "merchants/:merchant_id/invoices/:invoice_id show page" do
       expect(page).to have_content(item_1.name)
       expect(page).to have_content(item_1.invoice_items[0].quantity)
       expect(page).to have_content(item_1.invoice_items[0].unit_price)
-      expect(page).to have_content(item_1.invoice_items[0].status)
+      expect(page).to have_content("Status: #{item_1.invoice_items[0].status}")
       expect(page).to_not have_content(item_4.name)
       expect(page).to_not have_content(item_4.invoice_items[0].quantity)
-      expect(page).to_not have_content(item_4.invoice_items[0].status)    
+      expect(page).to_not have_content("Status: #{item_4.invoice_items[0].status}")    
     end 
   end
 

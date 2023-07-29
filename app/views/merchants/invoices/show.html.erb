@@ -20,8 +20,13 @@
 <div id=<%= item.name %>>
 <p> Item: <%= item.name %></p>
 <p> Quantity sold: <%= item.invoice_items[0].quantity %></p>
-<p> Quantity sold: <%= item.invoice_items[0].unit_price %></p>
-<p> Quantity sold: <%= item.invoice_items[0].status %></p>
+<p> Unit price: <%= item.invoice_items[0].unit_price %></p>
+<p> Status: <%= item.invoice_items[0].status %></p>
+      <p> Update invoice item status: </p>
+      <p><%= form_with model: item.invoice_items[0], url: merchant_invoice_item_path(@merchant, @invoice, item.invoice_items[0]), local: true do |form| %> </p>
+        <%= form.select :status, options_for_select(InvoiceItem.statuses.keys, selected: item.invoice_items[0].status) %>
+        <%= form.submit "Update Item Status" %>
+      <% end %>
 <p> ----------------------------------------------- </p>
 </div>
 
