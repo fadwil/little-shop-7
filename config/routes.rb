@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   end
 
   resources :merchants, only: [:show] do
-    resources :invoice_items, only: [:edit, :update], controller: "merchants/invoice_items"
+    resources :invoice_items, controller: "merchants/invoice_items"
   end
 
 end
