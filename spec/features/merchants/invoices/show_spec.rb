@@ -57,7 +57,7 @@ RSpec.describe "merchants/:merchant_id/invoices/:invoice_id show page" do
     invoice_item_3 = InvoiceItem.create!(item_id: item_3.id, invoice_id: invoice.id, quantity: 4, unit_price: item_3.unit_price, status: "packaged")
     invoice_item_4 = InvoiceItem.create!(item_id: item_4.id, invoice_id: invoice.id, quantity: 7, unit_price: item_4.unit_price, status: "pending")
     visit merchant_invoice_path(merchant, invoice)
-
+    save_and_open_page
     within "#Total_revenue" do
       expect(page).to have_content(merchant.total_revenue_for_invoice(invoice.id))
       expect(page).to_not have_content(merchant_2.total_revenue_for_invoice(invoice.id))    

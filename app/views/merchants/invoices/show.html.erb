@@ -6,6 +6,12 @@
 <p>Customer name: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
 </div>
 <p> ----------------------------------------------- </p>
+
+<div id="Total_revenue">
+<strong> Total revenue from items sold: <%= @merchant.total_revenue_for_invoice(@invoice.id) %> </strong>
+</div>
+
+<p> ----------------------------------------------- </p>
 <br/>
 <h3> Items </h3>
 <br/>
@@ -18,4 +24,6 @@
 <p> Quantity sold: <%= item.invoice_items[0].status %></p>
 <p> ----------------------------------------------- </p>
 </div>
+
+
 <% end %>
