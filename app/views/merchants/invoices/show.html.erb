@@ -5,3 +5,17 @@
 <p>Created at: <%= @invoice.format_created_at %></p>
 <p>Customer name: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
 </div>
+<p> ----------------------------------------------- </p>
+<br/>
+<h3> Items </h3>
+<br/>
+<div id="Items">
+<% @merchant.items_sold_in_invoice(@invoice.id).each do |item| %>
+<div id=<%= item.name %>>
+<p> Item: <%= item.name %></p>
+<p> Quantity sold: <%= item.invoice_items[0].quantity %></p>
+<p> Quantity sold: <%= item.invoice_items[0].unit_price %></p>
+<p> Quantity sold: <%= item.invoice_items[0].status %></p>
+<p> ----------------------------------------------- </p>
+</div>
+<% end %>

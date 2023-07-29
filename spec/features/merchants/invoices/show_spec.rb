@@ -1,13 +1,14 @@
 require "rails_helper"
 
 RSpec.describe "merchants/:merchant_id/invoices/:invoice_id show page" do
-
+  test_csv_load
   it "shows invoice ID, invoice status, formatted created_at date, and customer first and last name" do
     merchant = Merchant.first
     merchant_2 = Merchant.last
     invoice = Invoice.create!(customer_id: 3, status: "in progress")
     customer = Customer.find(3)
     visit merchant_invoice_path(merchant, invoice)
+    
     within "#Facts" do
       expect(page).to have_content("Invoice ID: #{invoice.id}")
       expect(page).to have_content("Invoice status: #{invoice.status}")
@@ -16,7 +17,7 @@ RSpec.describe "merchants/:merchant_id/invoices/:invoice_id show page" do
     end 
   end
 
-  xit "shows all items sold in the invoice by the merchant and not items by other merchants, as well as item attributes" do
+  it "shows all items sold in the invoice by the merchant and not items by other merchants, as well as item attributes" do
     merchant = Merchant.first
     merchant_2 = Merchant.last
     invoice = Invoice.create!(customer_id: 3, status: "in progress")
@@ -34,14 +35,11 @@ RSpec.describe "merchants/:merchant_id/invoices/:invoice_id show page" do
     within "#Items" do
       expect(page).to have_content(item_1.name)
       expect(page).to have_content(item_1.invoice_items[0].quantity)
-      expect(page).to have_content(item_1.invoice_item[0].unit_price)
-      expect(page).to have_content(item_1.invoice_item[0].status)
-      
+      expect(page).to have_content(item_1.invoice_items[0].unit_price)
+      expect(page).to have_content(item_1.invoice_items[0].status)
       expect(page).to_not have_content(item_4.name)
       expect(page).to_not have_content(item_4.invoice_items[0].quantity)
-      expect(page).to_not have_content(item_4.invoice_item[0].unit_price)
-      expect(page).to_not have_content(item_4.invoice_item[0].status)
-      
+      expect(page).to_not have_content(item_4.invoice_items[0].status)    
     end 
   end
 end

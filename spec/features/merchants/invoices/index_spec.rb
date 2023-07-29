@@ -1,8 +1,9 @@
 require "rails_helper"
 
 RSpec.describe "merchants/:merchant_id/invoices index" do
-
+  test_csv_load
   it "displays all invoices that show at least one merchant item and each ID links to invoice show page" do
+    
     merchant = Merchant.first
     visit merchant_invoices_path(merchant)
 
