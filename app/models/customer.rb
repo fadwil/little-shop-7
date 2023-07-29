@@ -9,6 +9,4 @@ class Customer < ApplicationRecord
             .order('COUNT(transactions.id) DESC')
             .limit(5)
   end
-
-
 end
