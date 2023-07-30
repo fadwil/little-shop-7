@@ -6,6 +6,7 @@ RSpec.describe "merchants/:merchant_id/invoices/:invoice_id show page" do
   before(:each) do
     ActiveRecord::Base.connection.reset_pk_sequence!('items')
     ActiveRecord::Base.connection.reset_pk_sequence!('invoice_items')
+    ActiveRecord::Base.connection.reset_pk_sequence!('transactions')
   end
   
   it "shows invoice ID, invoice status, formatted created_at date, and customer first and last name" do
@@ -53,6 +54,7 @@ RSpec.describe "merchants/:merchant_id/invoices/:invoice_id show page" do
     merchant = Merchant.first
     merchant_2 = Merchant.last
     invoice = Invoice.create!(customer_id: 3, status: "in progress")
+    transaction = invoice.transactions.create!(result: "success")
     customer = Customer.find(3)
     item_1 = merchant.items.create!(name: "Pogo stick", unit_price: 25000)
     item_2 = merchant.items.create!(name: "Hula hoop", unit_price: 15000)
@@ -74,6 +76,7 @@ RSpec.describe "merchants/:merchant_id/invoices/:invoice_id show page" do
     merchant = Merchant.first
     merchant_2 = Merchant.last
     invoice = Invoice.create!(customer_id: 3, status: "in progress")
+    transaction = invoice.transactions.create!(result: "success")
     customer = Customer.find(3)
     item_1 = merchant.items.create!(name: "Pogo stick", unit_price: 25000)
     item_2 = merchant.items.create!(name: "Hula hoop", unit_price: 15000)

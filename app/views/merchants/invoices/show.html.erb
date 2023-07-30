@@ -8,7 +8,7 @@
 <p> ----------------------------------------------- </p>
 
 <div id="Total_revenue">
-<strong> Total revenue from items sold: <%= @merchant.total_revenue_for_invoice(@invoice.id) %> </strong>
+<strong> Total revenue from items sold: <%= @merchant.total_revenue_for_invoice(@invoice.id) if @invoice.transactions_successful? %> </strong>
 </div>
 
 <p> ----------------------------------------------- </p>
