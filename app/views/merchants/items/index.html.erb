@@ -5,6 +5,14 @@
 <div id="item_<%= item.id %>">
   <p> <%= item.name %> </p>
   <p> <%= item.status %> </p>
+  <p><%= form_with model: item, url: merchant_item_path(@merchant, item), local: true do |form| %> </p>
+        <%= form.button type: :submit, name: "item[status]", value: "enabled" do %>
+          Enable
+        <% end %>
+        <%= form.button type: :submit, name: "item[status]", value: "disabled" do %>
+          Disable
+        <% end %>
+  <% end %>
 </div>
   <p>----------------------------------------</p>
 <% end %>

@@ -19,4 +19,5 @@ class Merchant < ApplicationRecord
   # def top_items
   #   items.order("total_revenue DESC").limit(5)
   # end
+
 end
