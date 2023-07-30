@@ -2,6 +2,9 @@
 
 
 <% @merchant.items.each do |item| %>
-  <p> <%= item.name %></p>
+<div id="item_<%= item.id %>">
+  <p> <%= item.name %> </p>
+  <p> <%= item.status %> </p>
+</div>
   <p>----------------------------------------</p>
 <% end %>

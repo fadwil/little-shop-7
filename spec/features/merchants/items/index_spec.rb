@@ -16,10 +16,15 @@ RSpec.describe "merchants/:merchant_id/items index" do
     merchant = Merchant.first
     visit merchant_items_path(merchant)
     item = merchant.items.sample
-    expect(page).to have_content(item.status)
 
-    click_button "enable"
+    within "div#item_#{item.id}" do
+      expect(page).to_not have_content("enabled")
+      expect(page).to have_content("disabled")
 
-    expect(page).to have_content(merchant.items.sample.name)
+      click_button "enable"
+
+      expect(page).to have_content("enabled")
+      expect(page).to_not have_content("disabled")
+    end
   end
 end
