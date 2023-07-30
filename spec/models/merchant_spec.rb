@@ -2,6 +2,11 @@ require "rails_helper"
 
 RSpec.describe Merchant, type: :model do
   test_csv_load
+  before(:each) do
+    ActiveRecord::Base.connection.reset_pk_sequence!('items')
+    ActiveRecord::Base.connection.reset_pk_sequence!('invoices')
+    ActiveRecord::Base.connection.reset_pk_sequence!('invoice_items')
+  end
 
   describe "relationships" do
     it { should have_many :items }

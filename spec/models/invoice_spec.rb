@@ -1,6 +1,13 @@
 require "rails_helper"
 
 RSpec.describe Invoice, type: :model do
+
+  before(:each) do
+    ActiveRecord::Base.connection.reset_pk_sequence!('items')
+    ActiveRecord::Base.connection.reset_pk_sequence!('invoices')
+    ActiveRecord::Base.connection.reset_pk_sequence!('invoice_items')
+  end
+
   describe "relationships" do
     it { should belong_to :customer }
     it { should have_many :transactions }
