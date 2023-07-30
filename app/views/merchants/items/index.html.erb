@@ -1,14 +1,14 @@
 <h1><%= @merchant.name %>'s Items </h1>
 
-
+<div id="Enabled">
+<h3>Enabled items:</h3>
+<strong>----------------------------------------</strong>
 <% @merchant.items.each do |item| %>
+<% if item.status == "enabled" %>
 <div id="item_<%= item.id %>">
-  <p> <%= item.name %> </p>
+  <b><i> <%= item.name %> </b></i>
   <p> <%= item.status %> </p>
   <p><%= form_with model: item, url: merchant_item_path(@merchant, item), local: true do |form| %> </p>
-        <%= form.button type: :submit, name: "item[status]", value: "enabled" do %>
-          Enable
-        <% end %>
         <%= form.button type: :submit, name: "item[status]", value: "disabled" do %>
           Disable
         <% end %>
@@ -16,4 +16,25 @@
 </div>
   <p>----------------------------------------</p>
 <% end %>
+<% end %>
+</div>
+
+<div id="Disabled">
+<h3>Disabled items:</h3>
+<strong>----------------------------------------</strong>
+<% @merchant.items.each do |item| %>
+<% if item.status == "disabled" %>
+<div id="item_<%= item.id %>">
+  <b><i> <%= item.name %> </b></i>
+  <p> <%= item.status %> </p>
+  <p><%= form_with model: item, url: merchant_item_path(@merchant, item), local: true do |form| %> </p>
+        <%= form.button type: :submit, name: "item[status]", value: "enabled" do %>
+          Enable
+        <% end %>
+  <% end %>
+</div>
+  <p>----------------------------------------</p>
+<% end %>
+<% end %>
+</div>
 

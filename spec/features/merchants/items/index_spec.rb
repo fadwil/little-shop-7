@@ -30,14 +30,13 @@ RSpec.describe "merchants/:merchant_id/items index" do
 
   it "groups items by item status" do
     merchant = Merchant.first
-    visit merchant_items_path(merchant)
     item_1 = merchant.items[0]
     item_2 = merchant.items[1]
     item_3 = merchant.items[2]
     item_4 = merchant.items[3]
-
     item_1.update(status:"enabled")
     item_2.update(status:"enabled")
+    visit merchant_items_path(merchant)
 
     within "#Enabled" do
       expect(page).to have_content(item_1.name)
