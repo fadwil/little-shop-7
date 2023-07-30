@@ -21,5 +21,12 @@ RSpec.describe Invoice, type: :model do
       invoice = Invoice.create!(customer_id: 3, status: "completed", created_at: "2012-03-25 09:54:09 UTC")
       expect(invoice.format_created_at).to eq("Sunday, March 25, 2012")
     end
+
+    it "can determine if any transactions were successful" do
+      invoice = Invoice.create!(customer_id: 3, status: "completed", created_at: "2012-03-25 09:54:09 UTC")
+      expect(invoice.transactions_successful?).to eq false
+      transaction = invoice.transactions.create!(result: "success")
+      expect(invoice.transactions_successful?).to eq true
+    end
   end
 end

@@ -15,4 +15,8 @@ class Merchant < ApplicationRecord
       .joins(:invoice_items)
       .sum('invoice_items.quantity * invoice_items.unit_price')
   end
+
+  # def top_items
+  #   items.order("total_revenue DESC").limit(5)
+  # end
 end

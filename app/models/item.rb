@@ -7,4 +7,10 @@ class Item < ApplicationRecord
     "disabled" => 0,
     "enabled" => 1
   }
+
+  def total_revenue
+    invoice_items.joins(invoice: :transactions)
+                .where('transactions.result' => 'success')
+                .sum('invoice_items.quantity * invoice_items.unit_price')
+  end
 end
