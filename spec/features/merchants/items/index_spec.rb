@@ -2,6 +2,12 @@ require "rails_helper"
 
 RSpec.describe "merchants/:merchant_id/items index" do
   test_csv_load
+  before(:each) do
+    ActiveRecord::Base.connection.reset_pk_sequence!('merchants')
+    ActiveRecord::Base.connection.reset_pk_sequence!('items')
+    ActiveRecord::Base.connection.reset_pk_sequence!('invoices')
+    ActiveRecord::Base.connection.reset_pk_sequence!('invoice_items')
+  end
   it "displays all items associated with a merchant" do
     merchant = Merchant.first
     merchant_2 = Merchant.last
@@ -89,18 +95,13 @@ RSpec.describe "merchants/:merchant_id/items index" do
       expect(item_3.name).to appear_before(item_2.name)
       expect(page).to_not have_content(item_8.name)
       expect(page).to_not have_content(item_7.name)
-    end
 
-    within "div#item_#{item_6.id}" do
-      expect(page).to have_content("Total revenue generated: 225000")
+      expect(page).to have_content("Total revenue generated for #{item_6.name}: 225000")
       click_link(item_6.name)
       expect(current_path).to eq(merchant_item_path(merchant, item_6))
-    end
-    
-    visit merchant_items_path(merchant)
-
-    within "div#item_#{item_5.id}" do
-      expect(page).to have_content("Total revenue generated: 150000")
+      visit merchant_items_path(merchant)
+      
+      expect(page).to have_content("Total revenue generated for #{item_5.name}: 150000")
       click_link(item_5.name)
       expect(current_path).to eq(merchant_item_path(merchant, item_5))
     end

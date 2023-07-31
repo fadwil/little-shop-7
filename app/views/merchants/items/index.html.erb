@@ -1,5 +1,15 @@
 <h1><%= @merchant.name %>'s Items </h1>
 
+<div id="Top_items">
+<h2>Top items:</h2>
+<% merchant.top_items.each do |item| %>
+
+  <b><i> <%= item.name %> </b></i>
+<% end %>
+</div>
+
+
+
 <div id="Enabled">
 <h3>Enabled items:</h3>
 <strong>----------------------------------------</strong>
