@@ -14,7 +14,7 @@ namespace :csv_load do
     csv.each do |row|
       Customer.create(row)
     end
-    ActiveRecord::Base.connection.reset_pk_sequence!('customers')
+    
   end
 
   desc "TODO"

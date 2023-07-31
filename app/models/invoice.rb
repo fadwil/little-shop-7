@@ -14,4 +14,7 @@ class Invoice < ApplicationRecord
     created_at.strftime("%A, %B %d, %Y")
   end
 
+  def transactions_successful?
+    transactions.where(result: 'success').exists?
+  end
 end

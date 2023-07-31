@@ -13,7 +13,6 @@ class Merchant < ApplicationRecord
         .select('items.*, invoice_items.invoice_id AS invoice_id, invoices.created_at AS invoice_created')
         .group(:invoice_id, :id, :item_id, :invoice_created)
         .order('invoice_created ASC')
-
   end
 
   def top_customers
@@ -24,4 +23,24 @@ class Merchant < ApplicationRecord
       .order('successful_transactions_count DESC')
       .limit(5)
   end
+  
+  def items_sold_in_invoice(invoice_id)
+    items.joins(:invoices).where('invoices.id = ?', invoice_id)
+  end
+
+  def total_revenue_for_invoice(invoice_id)
+    items_sold_in_invoice(invoice_id)
+      .joins(:invoice_items)
+      .sum('invoice_items.quantity * invoice_items.unit_price')
+  end
+
+  def top_items
+    items.joins(invoices: :transactions)
+    .where(transactions: { result: 'success' })
+    .group('items.id')
+    .select('items.*, SUM(invoice_items.quantity * invoice_items.unit_price) AS total_revenue')
+    .order('total_revenue DESC')
+    .limit(5)
+  end
+
 end
