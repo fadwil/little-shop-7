@@ -10,6 +10,10 @@ class Merchants::ItemsController < ApplicationController
       redirect_to merchant_items_path(@merchant), notice: 'Item status updated successfully.'
   end
 
+  def show
+
+  end
+
   private
 
   def item_params

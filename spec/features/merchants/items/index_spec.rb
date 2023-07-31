@@ -100,7 +100,7 @@ RSpec.describe "merchants/:merchant_id/items index" do
       click_link(item_6.name)
       expect(current_path).to eq(merchant_item_path(merchant, item_6))
       visit merchant_items_path(merchant)
-      
+
       expect(page).to have_content("Total revenue generated for #{item_5.name}: 150000")
       click_link(item_5.name)
       expect(current_path).to eq(merchant_item_path(merchant, item_5))
