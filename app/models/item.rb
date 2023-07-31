@@ -13,4 +13,13 @@ class Item < ApplicationRecord
                 .where('transactions.result' => 'success')
                 .sum('invoice_items.quantity * invoice_items.unit_price')
   end
+
+  def top_selling_date
+    invoices.joins(:invoice_items)
+       .group('DATE(invoices.created_at), invoices.id, invoices.status, invoices.created_at, invoices.updated_at, invoices.customer_id')
+       .select('invoices.*, SUM(invoice_items.quantity) AS number_sold')
+       .order('number_sold DESC')
+       .limit(1)
+       .first
+    end
 end
