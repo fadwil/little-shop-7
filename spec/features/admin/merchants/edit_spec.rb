@@ -14,7 +14,7 @@ RSpec.describe "/admin/merchants/:merchant_id/edit", type: :feature do
       
       fill_in("Name", with: "Merchant #1")
       click_button("Submit")
-      expect(current_path).to eq("/admin/merchants")
+      expect(current_path).to eq("/admin/merchants/#{merchant_1.id}")
       expect(page).to have_content("Merchant #1")
       expect(:alert).to be_present
     end
