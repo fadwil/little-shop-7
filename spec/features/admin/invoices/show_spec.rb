@@ -53,5 +53,12 @@ RSpec.describe "/admin/invoices/:invoice_id" do
       expect(page).to have_content("$2,500")
       expect(page).to have_content(@invoice_item_2.status)
     end
+
+    it "displays total revenue for that invoice" do
+      visit "admin/invoices/#{@invoice_1.id}"
+      
+      expect(page).to have_content("$137,500.00")
+      expect(page).to_not have_content("$12,500.00")
+    end
   end
 end
