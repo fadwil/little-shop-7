@@ -74,33 +74,17 @@ RSpec.describe 'Admin Dashboard', type: :feature do
   end
 
   it 'has an incomplete invoices section' do
-    expect(page).to have_content("Incomplete Invoices")
-    
-    # Will have to come back to once invoice id interpolation is set up on the view
-
-    # The have_link below may have to change based on how we finalize it in the view?
-    
-    # expect(page).to_not have_content(invoice_1.id)
-    # expect(page).to have_link("Invoice ##{@invoice12.id}", href: "/admin/invoices/#{@invoice12.id}")
-    # expect(page).to have_link("Invoice ##{@invoice13.id}", href: "/admin/invoices/#{@invoice13.id}")
-    # click_link(invoice_12.id)
-    # expect(current_path).to eq("/admin/invoices/#{invoice_12.id}")
+    expect(page).to_not have_content(@invoice_1.id)
+    expect(page).to have_link("#{@invoice_12.id}", href: "/admin/invoices/#{@invoice_12.id}")
+    expect(page).to have_link("#{@invoice_13.id}", href: "/admin/invoices/#{@invoice_13.id}")
+    click_link(@invoice_12.id)
+    expect(current_path).to eq("/admin/invoices/#{@invoice_12.id}")
   end
 
   it "lists each incomplete invoice from oldest to newest" do
-    # For this one we will need to have a div tag for the incomplete invoices section so we can use
-    # within blocks for testing as that is expected of us.
-
-    # within("#invoice-#{@invoice12.id}") do
-    #   expect(page).to have_link("Invoice ##{@invoice12.id}")
-    #   expect(page).to have_content(@invoice12.invoice.format_created_at) 
-    # end
-
-    # within("#invoice-#{@invoice13.id}") do
-    #   expect(page).to have_link("Invoice ##{@invoice13.id}")
-    #   expect(page).to have_content(@invoice13.invoice.format_created_at)
-    # end
-
-    # expect("Invoice ##{@invoice13.id}").to appear_before("Invoice ##{@invoice12.id}")
+      expect(page).to have_link("#{@invoice_12.id}")
+      expect(page).to have_link("#{@invoice_13.id}")
+      expect("#{@invoice_12.id}").to appear_before("#{@invoice_13.id}")
+      expect(page).to_not have_link("#{@invoice_1.id}")
   end
 end
