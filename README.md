@@ -39,3 +39,12 @@
 1. [User Stories](./doc/user_stories.md)
 1. [Extensions](./doc/extensions.md)
 1. [Evaluation](./doc/evaluation.md)
+
+## Reflection
+
+ - For this project we had to come together as a group to build a web application that allowed the user to manipulate data for merchants, items, invoices, transactions, and other useful information pertaining to running an ecommerce site. We were able to get through all the user stories, cutting it right up to the wire for the API stories. There are many lessons that we have taken away as both individuals and a collective working group, least of which includes don't wait to merge until the day of submission. I think our CSS styling leaves much to be desired and we encountered some very funky issues in our testing. Oftentimes bundle exec rspec runs fully passing but will occasionally show failing tests for reasons none of us were able to fully comprehend. We found that running rails db:{drop,create,migrate} would occasionally work and that quitting VS and starting it back up would usually bring our tests back to fully passing. 
+
+ Ian - https://github.com/ILyell
+ Connor - https://github.com/ConnorRichmond
+ Wil - https://github.com/fadwil
+ Parker - https://github.com/ParkerBoeing
