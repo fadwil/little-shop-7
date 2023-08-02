@@ -45,10 +45,6 @@ RSpec.describe Item, type: :model do
       item_2 = merchant.items.create!(name: "Hula hoop")
       item_3 = merchant.items.create!(name: "Boomerang")
       item_4 = merchant.items.create!(name: "Barbie")
-      item_5 = merchant.items.create!(name: "Tonka truck")
-      item_6 = merchant.items.create!(name: "Leggos")
-      item_7 = merchant.items.create!(name: "Kinex")
-      item_8 = merchant_2.items.create!(name: "Silly putty")
 
       invoice_item_1 = InvoiceItem.create!(item_id: item_1.id, invoice_id: invoice.id, quantity: 5, unit_price: 25000, status: "shipped")
       invoice_item_10 = InvoiceItem.create!(item_id: item_1.id, invoice_id: invoice_2.id, quantity: 3, unit_price: 25000, status: "shipped")

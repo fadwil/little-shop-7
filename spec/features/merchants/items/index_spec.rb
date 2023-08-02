@@ -15,8 +15,8 @@ RSpec.describe "merchants/:merchant_id/items index" do
         @item_3 = @merchant_2.items.create!(name: "Boomerang")
         @item_4 = @merchant_2.items.create!(name: "Barbie")
     end
+
     it "displays all items associated with a merchant" do
-        
         @merchant_1 = Merchant.first
         @merchant_2 = Merchant.last
         visit merchant_items_path(@merchant_1)
@@ -26,7 +26,6 @@ RSpec.describe "merchants/:merchant_id/items index" do
     end
 
     it "displays item status and has a form to update that item status" do
-    
         visit merchant_items_path(@merchant_1)
         item = @merchant_1.items.sample
         within "div#item_#{item.id}" do
@@ -39,6 +38,7 @@ RSpec.describe "merchants/:merchant_id/items index" do
             expect(page).to_not have_content("disabled")
         end
     end
+
     it "groups items by item status" do
         merchant = Merchant.first
         item_1 = merchant.items[0]
@@ -113,42 +113,66 @@ RSpec.describe "merchants/:merchant_id/items index" do
     end
                 
     it 'Has each items name as a link to that items show page' do
-
         visit merchant_items_path(@merchant_1)
-
         expect(page).to have_link(@item_1.name)
 
         click_link(@item_1.name)
-
         expect(current_path).to eq(merchant_item_path(@item_1, @merchant_1))
-
     end
 
     it 'Has a link to create a new item' do
-
         visit merchant_items_path(@merchant_1)
-
         expect(page).to have_link("Create New Item")
-
         click_link("Create New Item")
-
         within "#new_item" do
             fill_in :name, with: "A new item"
             fill_in :description, with: "A new description"
             fill_in :unit_price, with: "8526"
-
             click_button "Create Item"
         end
-
         expect(current_path).to eq(merchant_items_path(@merchant_1))
-
-        expect(page).to have_link("A new item")
-                
+        expect(page).to have_link("A new item")   
         click_link("A new item")
 
         expect(page).to have_content("A new item")
         expect(page).to have_content("A new description")
         expect(page).to have_content("8526")
+    end
+
+    it "displays the top selling date for each of the merchants top 5 items" do
+      merchant = Merchant.create!(name: "Toyz R Uz")
+      invoice = Invoice.create!(customer_id: 3, status: "completed", created_at: "2020-03-06")
+      invoice_2 = Invoice.create!(customer_id: 5, status: "completed", created_at: "2021-04-07")
+      invoice_3 = Invoice.create!(customer_id: 4, status: "completed", created_at: "2022-05-08")
+      transaction = invoice.transactions.create!(result: "success")
+      transaction_2 = invoice_2.transactions.create!(result: "success")
+      transaction_3 = invoice_3.transactions.create!(result: "success")
+
+      item_1 = merchant.items.create!(name: "Pogo stick")
+      item_2 = merchant.items.create!(name: "Hula hoop")
+      item_3 = merchant.items.create!(name: "Boomerang")
+      item_4 = merchant.items.create!(name: "Barbie")
+      item_5 = merchant.items.create!(name: "Tonka truck")
+      item_6 = merchant.items.create!(name: "Leggos")
+
+      invoice_item_1 = InvoiceItem.create!(item_id: item_1.id, invoice_id: invoice.id, quantity: 3, unit_price: 25000, status: "shipped")
+      invoice_item_2 = InvoiceItem.create!(item_id: item_2.id, invoice_id: invoice.id, quantity: 3, unit_price: 30000, status: "packaged")
+      invoice_item_2 = InvoiceItem.create!(item_id: item_2.id, invoice_id: invoice.id, quantity: 3, unit_price: 30000, status: "packaged")
+      invoice_item_3 = InvoiceItem.create!(item_id: item_3.id, invoice_id: invoice.id, quantity: 3, unit_price: 45000, status: "packaged")
+      invoice_item_4 = InvoiceItem.create!(item_id: item_4.id, invoice_id: invoice.id, quantity: 3, unit_price: 60000, status: "pending")
+      invoice_item_5 = InvoiceItem.create!(item_id: item_5.id, invoice_id: invoice.id, quantity: 3, unit_price: 50000, status: "pending")
+      invoice_item_6 = InvoiceItem.create!(item_id: item_6.id, invoice_id: invoice_2.id, quantity: 3, unit_price: 75000, status: "pending")
+      invoice_item_9 = InvoiceItem.create!(item_id: item_4.id, invoice_id: invoice_3.id, quantity: 9, unit_price: 60000, status: "pending")
+      visit merchant_items_path(merchant)
+
+      within "#Top_items" do
+          expect(page).to have_content("Top selling date for #{item_6.name} was #{item_6.top_selling_date.format_created_at}")
+          expect(page).to have_content("Top selling date for #{item_5.name} was #{item_5.top_selling_date.format_created_at}")
+          expect(page).to have_content("Top selling date for #{item_4.name} was #{item_4.top_selling_date.format_created_at}")
+          expect(page).to have_content("Top selling date for #{item_3.name} was #{item_3.top_selling_date.format_created_at}")
+          expect(page).to have_content("Top selling date for #{item_2.name} was #{item_2.top_selling_date.format_created_at}")
+          expect(page).to_not have_content("Top selling date for #{item_1.name} was #{item_1.top_selling_date.format_created_at}")
+      end
     end
 end
 
