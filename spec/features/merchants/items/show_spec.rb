@@ -10,6 +10,14 @@ RSpec.describe 'Item Show Page', type: :feature do
     describe 'As a Merchant' do
         describe 'when I click the name of an item on the item index page (merchants/:merchant_id/items)' do
             describe 'Takes me to that merchants items show page' do
+                
+                it 'shows an image' do
+
+                    visit merchant_item_path(@merchant_1.id, @item_1)
+
+                    expect(page).to have_css('img')
+                end 
+
                 it 'Shows all the items attributes' do
 
                     visit merchant_item_path(@merchant_1.id, @item_1)
