@@ -49,7 +49,7 @@ RSpec.describe "/admin /merchants", type: :feature do
       end
     end
 
-    it "when clicked redirects to index and the status has changed" do
+    it "when clicked redirects to index and the status has changed to disabled" do
       merchant_1 = Merchant.create!(name: "Merchant 1")
 
       visit "/admin/merchants"
@@ -62,6 +62,24 @@ RSpec.describe "/admin /merchants", type: :feature do
       
       within("tr#dm-#{merchant_1.id}") do
         expect(page).to have_button("Enable")
+      end
+    end
+
+    it "when clicked redirects to index and the status has changed to enabled" do
+      merchant_1 = Merchant.create!(name: "Merchant 1")
+
+      visit "/admin/merchants"
+      
+      within("tr#em-#{merchant_1.id}") do
+        click_button("Disable")
+      end
+
+      within("tr#dm-#{merchant_1.id}") do
+        click_button("Enable")
+      end
+      
+      within("tr#em-#{merchant_1.id}") do
+        expect(page).to have_button("Disable")
       end
     end
 

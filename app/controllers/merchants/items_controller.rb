@@ -31,8 +31,6 @@ class Merchants::ItemsController < ApplicationController
     @item = Item.create(item_params)
     if @item.save
         redirect_to merchant_items_path(@merchant)
-    else
-        redirect_to new_merchant_item_path
     end
   end
 
