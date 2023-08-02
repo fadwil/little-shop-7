@@ -8,6 +8,12 @@ RSpec.describe Customer, type: :model do
 
   describe "class methods" do
     before(:each) do
+      InvoiceItem.destroy_all
+      Transaction.destroy_all
+      Invoice.destroy_all
+      Item.destroy_all
+      Merchant.destroy_all
+      Customer.destroy_all
       @merchant_1 = Merchant.create!(name: "Walmart")
       @item_1 = Item.create!(name: "Bicycle", description: "It has 2 wheels and pedals.", unit_price: 500, merchant_id: @merchant_1.id)
       @customer_1 = Customer.create!(first_name: "Dan", last_name: "Smith")
@@ -28,8 +34,8 @@ RSpec.describe Customer, type: :model do
       @invoice_9 = Invoice.create!(status: "completed", customer_id: @customer_4.id)
       @invoice_10 = Invoice.create!(status: "completed", customer_id: @customer_4.id)
       @invoice_11 = Invoice.create!(status: "completed", customer_id: @customer_5.id)
-      @invoice_12 = Invoice.create!(status: "in_progress", customer_id: @customer_6.id)
-      @invoice_13 = Invoice.create!(status: "in_progress", customer_id: @customer_7.id)
+      @invoice_12 = Invoice.create!(status: "in progress", customer_id: @customer_6.id)
+      @invoice_13 = Invoice.create!(status: "in progress", customer_id: @customer_7.id)
       @invoice_item_1 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_1.id, quantity: 5, unit_price: 25000, status: "shipped")
       @invoice_item_2 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_2.id, quantity: 5, unit_price: 25000, status: "shipped")
       @invoice_item_3 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_3.id, quantity: 5, unit_price: 25000, status: "shipped")
@@ -57,6 +63,7 @@ RSpec.describe Customer, type: :model do
       @transaction_12 = Transaction.create!(invoice_id: @invoice_12.id, credit_card_number: "1191993766451254", credit_card_expiration_date: "06/01", result: "failed")
       @transaction_13 = Transaction.create!(invoice_id: @invoice_13.id, credit_card_number: "2079801981307339", credit_card_expiration_date: "07/01", result: "failed")
     end
+
     it ".top_customers_with_transactions" do
       expected = [@customer_1, @customer_2, @customer_3, @customer_4, @customer_5]
       expect(Customer.top_customers_with_transactions).to eq(expected)

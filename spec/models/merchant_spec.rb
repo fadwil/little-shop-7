@@ -7,6 +7,7 @@ RSpec.describe Merchant, type: :model do
     it { should have_many :items }
     it { should have_many(:invoices).through(:items) }
   end
+
   describe "instance methods" do
    test_csv_load
     before(:each) do
@@ -22,7 +23,7 @@ RSpec.describe Merchant, type: :model do
       ActiveRecord::Base.connection.reset_pk_sequence!('invoice_items')
     end
     
-     it "does not return repeat invoices if multiple items from the merchant were sold in the same invoice" do
+    it "does not return repeat invoices if multiple items from the merchant were sold in the same invoice" do
       merchant = Merchant.first
       expect(merchant.distinct_invoices.count).to_not eq(merchant.invoices.count)
     end
@@ -85,15 +86,15 @@ RSpec.describe Merchant, type: :model do
       expect(merchant.top_items).to eq([item_6, item_4, item_5, item_3, item_2])
     end
  
-   describe '#items_status' do
-     it 'returns all items that havent been shipped' do
-          expect(@merchant_1.items_status).to eq(@merchant_1_items)
-          expect(@merchant_2.items_status).to eq(@merchant_2_items)
-     end
-   end
- describe '#top_customers' do
-      it 'returns the top 5 customers for a merchant' do
+    describe '#items_status' do
+      it 'returns all items that havent been shipped' do
+        expect(@merchant_1.items_status).to eq(@merchant_1_items)
+        expect(@merchant_2.items_status).to eq(@merchant_2_items)
+      end
+    end
 
+    describe '#top_customers' do
+      it 'returns the top 5 customers for a merchant' do
         top_customers_test_csv_load
         @top_customers = Merchant.find(1).top_customers
         @top_customers_test = Customer.find(170, 7, 103, 119, 73,)
@@ -102,10 +103,8 @@ RSpec.describe Merchant, type: :model do
         expect(@top_customers.find(170)).to eq(Customer.find(170))
         expect(@top_customers.find(103)).to eq(Customer.find(103))
         expect(@top_customers.find(119)).to eq(Customer.find(119))
-        expect(@top_customers.find(73)).to eq(Customer.find(73))
-          
+        expect(@top_customers.find(73)).to eq(Customer.find(73))   
       end
-  end
     end
   end
 end

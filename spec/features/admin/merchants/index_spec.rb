@@ -1,6 +1,15 @@
 require "rails_helper"
 
 RSpec.describe "/admin /merchants", type: :feature do
+  before(:each) do
+    InvoiceItem.destroy_all
+    Transaction.destroy_all
+    Invoice.destroy_all
+    Item.destroy_all
+    Merchant.destroy_all
+    Customer.destroy_all
+  end
+  
   describe "admin merchants index page" do
     it "has the name of each merchant in the system" do
       merchant_1 = Merchant.create!(name: "Merchant 1")
@@ -45,10 +54,15 @@ RSpec.describe "/admin /merchants", type: :feature do
 
       visit "/admin/merchants"
       
-      click_button("Disable")
-      
+      within("tr#em-#{merchant_1.id}") do
+        click_button("Disable")
+      end
+
       expect(current_path).to eq("/admin/merchants")
-      expect(page).to have_button("Enable")
+      
+      within("tr#dm-#{merchant_1.id}") do
+        expect(page).to have_button("Enable")
+      end
     end
 
     it "has merchants listed in appropriate sections for enabled or disabled" do
@@ -128,8 +142,8 @@ RSpec.describe "/admin /merchants", type: :feature do
       invoice_9 = Invoice.create!(status: "completed", customer_id: customer_4.id)
       invoice_10 = Invoice.create!(status: "completed", customer_id: customer_4.id)
       invoice_11 = Invoice.create!(status: "completed", customer_id: customer_5.id)
-      invoice_12 = Invoice.create!(status: "in_progress", customer_id: customer_6.id)
-      invoice_13 = Invoice.create!(status: "in_progress", customer_id: customer_7.id)
+      invoice_12 = Invoice.create!(status: "in progress", customer_id: customer_6.id)
+      invoice_13 = Invoice.create!(status: "in progress", customer_id: customer_7.id)
       invoice_item_1 = InvoiceItem.create!(item_id: item_1.id, invoice_id: invoice_1.id, quantity: 5, unit_price: 25000, status: "shipped")
       invoice_item_2 = InvoiceItem.create!(item_id: item_1.id, invoice_id: invoice_2.id, quantity: 5, unit_price: 25000, status: "shipped")
       invoice_item_3 = InvoiceItem.create!(item_id: item_1.id, invoice_id: invoice_3.id, quantity: 5, unit_price: 25000, status: "shipped")
@@ -197,8 +211,8 @@ RSpec.describe "/admin /merchants", type: :feature do
       invoice_9 = Invoice.create!(status: "completed", customer_id: customer_4.id)
       invoice_10 = Invoice.create!(status: "completed", customer_id: customer_4.id)
       invoice_11 = Invoice.create!(status: "completed", customer_id: customer_5.id)
-      invoice_12 = Invoice.create!(status: "in_progress", customer_id: customer_6.id)
-      invoice_13 = Invoice.create!(status: "in_progress", customer_id: customer_7.id)
+      invoice_12 = Invoice.create!(status: "in progress", customer_id: customer_6.id)
+      invoice_13 = Invoice.create!(status: "in progress", customer_id: customer_7.id)
       invoice_item_1 = InvoiceItem.create!(item_id: item_1.id, invoice_id: invoice_1.id, quantity: 5, unit_price: 25000, status: "shipped")
       invoice_item_2 = InvoiceItem.create!(item_id: item_1.id, invoice_id: invoice_2.id, quantity: 5, unit_price: 25000, status: "shipped")
       invoice_item_3 = InvoiceItem.create!(item_id: item_1.id, invoice_id: invoice_3.id, quantity: 5, unit_price: 25000, status: "shipped")
