@@ -1,7 +1,56 @@
 <h1>Merchants</h1>
 
-<% @merchants.each do |merchant| %>
-  
-  <li><%= link_to merchant.name , "/admin/merchants/#{merchant.id}"%></li>
+<%= link_to 'Create New Merchant', "/admin/merchants/new" %>
 
+<h2>Top 5 Merchants by Revenue</h2>
+<ol>
+  <% @top_merchants_with_dates.each do |data| %>
+    <li>
+      <%= link_to data[:merchant].name, "/admin/merchants/#{data[:merchant].id}" %> -
+      <%= number_to_currency(data[:merchant].revenue.to_f) %> in sales </br>
+      <% if data[:top_selling_date] %>
+        Top day for <%= data[:merchant].name %> was <%= data[:top_selling_date].strftime('%m/%d/%y') %>
+      <% else %>
+        No sales data available
+      <% end %>
+    </li>
+  <% end %>
+</ol>
+
+
+
+<h2>Enabled Merchants</h2>
+<% if @enabled_merchants.any? %>
+  <table>
+    <tbody>
+      <% @enabled_merchants.each do |merchant| %>
+        <tr id="em-<%= merchant.id %>">
+          <td><%= link_to merchant.name, "/admin/merchants/#{merchant.id}" %></td>
+          <td>
+            <%= button_to 'Disable', disable_status_admin_merchant_path(merchant), method: :put, class: "button" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No enabled merchants found.</p>
+<% end %>
+
+<h2>Disabled Merchants</h2>
+<% if @disabled_merchants.any? %>
+  <table>
+    <tbody>
+      <% @disabled_merchants.each do |merchant| %>
+        <tr id="dm-<%= merchant.id %>">
+          <td><%= link_to merchant.name, "/admin/merchants/#{merchant.id}" %></td>
+            <td>
+              <%= button_to 'Enable', enable_status_admin_merchant_path(merchant), method: :put, class: "button" %>
+            </td>
+          </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No disabled merchants found.</p>
 <% end %>

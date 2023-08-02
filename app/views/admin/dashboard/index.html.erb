@@ -4,20 +4,15 @@
   <%= link_to "Merchants", "/admin/merchants" %><br>
   <%= link_to "Invoices", "/admin/invoices" %>
 </ul>
-<table>
-  <thead>
-    <tr>
-      <th>Top Customers</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @top_customers.each do |customer| %>
-      <tr>
-        <td><%= customer.first_name %> <%= customer.last_name %> - <%= customer.transaction_count %> Purchases</td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+
+<h2>Top Customers</h2>
+
+<ol>
+  <% @top_customers.each do |customer| %>
+      <li><%= customer.first_name %> <%= customer.last_name %> - <%= customer.transaction_count %> Purchases</li>
+  <% end %>
+</ol>  
+
 
 <table>
   <thead>
@@ -28,7 +23,7 @@
   <tbody>
     <% @incomplete_invoices.each do |invoice| %>
       <tr>
-        <td>Invoice #<%= link_to invoice.id, "/admin/invoices/:id" %> - <%= invoice.created_at.strftime("%A, %B %d, %Y") %></td>
+        <td>Invoice #<%= link_to "#{invoice.id}", "/admin/invoices/#{invoice.id}" %></td>
       </tr>
     <% end %>
   </tbody>

@@ -94,7 +94,13 @@ RSpec.configure do |config|
 end
 
 def test_csv_load
-
+  InvoiceItem.destroy_all
+  Transaction.destroy_all
+  Invoice.destroy_all
+  Item.destroy_all
+  Merchant.destroy_all
+  Customer.destroy_all
+  
   csv_text = File.read("spec/fixtures/customer_test.csv")
   csv = CSV.parse(csv_text, :headers => true, header_converters: :symbol)
   csv.each do |row|

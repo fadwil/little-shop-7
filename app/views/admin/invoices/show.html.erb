@@ -1,0 +1,32 @@
+<h1>Invoice #<%= @invoice.id %></h1>
+
+<p>Invoice Status: <%= form_with(model: @invoice, url: admin_invoice_path(@invoice), method: :patch) do |form| %>
+                    <%= form.select :status, Invoice.statuses.keys.map { |status| [status.titleize, status] } %>
+                    <%= form.submit "Update Invoice Status" %>
+                   <% end %>
+<p>Created On: <%= @invoice.format_created_at%></p>
+<p>Customer Name: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
+<p>Total Revenue: <%= number_to_currency(@total_revenue) %></p>
+
+<h2>Items on this Invoice</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Quantity</th>
+      <th>Unit Price</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @invoice_items.each do |invoice_item| %>
+      <tr>
+        <td><%= invoice_item.item.name %></td>
+        <td><%= invoice_item.quantity %></td>
+        <td><%= number_to_currency(invoice_item.unit_price) %></td>
+        <td><%= invoice_item.status %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

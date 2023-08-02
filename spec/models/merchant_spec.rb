@@ -41,7 +41,7 @@ RSpec.describe Merchant, type: :model do
       Customer.all.each do |customer|
         5.times do
           invoice = customer.invoices.create!(
-            status: ['pending', 'paid', 'cancelled'].sample
+            status: ['cancelled', 'completed', 'in_progress'].sample
           )
   
           Item.all.sample(5).each do |item|

@@ -35,7 +35,7 @@ RSpec.describe "merchants/:merchant_id/invoices index" do
     Customer.all.each do |customer|
       5.times do
         invoice = customer.invoices.create!(
-          status: ['pending', 'paid', 'cancelled'].sample
+          status: ['cancelled', 'completed', 'in_progress'].sample
         )
 
         Item.all.sample(5).each do |item|
