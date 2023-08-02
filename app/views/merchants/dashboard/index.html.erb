@@ -1,8 +1,7 @@
 
 <section id="merchant_info">
-<br>
-<%= image_tag(@random_image.url["small"]) %>
-<br>
+<%= render partial: "partials/merchant_header" %>
+</section>
 <h1><%= @merchant.name %></h1>
 </section>
 <section id="dashboard_nav">

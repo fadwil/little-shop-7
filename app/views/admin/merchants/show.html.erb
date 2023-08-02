@@ -1,5 +1,5 @@
-<h1> <%= @merchant.name %></h1>
-<%= image_tag(@random_image.url["small"]) %>
-
+<section id="merchant_info">
+<%= render partial: "partials/merchant_header" %>
+</section>
 
 <p><%= link_to "Update info" , "/admin/merchants/#{@merchant.id}/edit"%></p>
