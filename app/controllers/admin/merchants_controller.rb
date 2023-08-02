@@ -14,6 +14,8 @@ class Admin::MerchantsController < ApplicationController
 
   def show
     @merchant = Merchant.find(params[:id])
+    @random_image = UnsplashService.new.random_photo
+    
   end
 
   def edit

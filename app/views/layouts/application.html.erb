@@ -11,6 +11,8 @@
   </head>
   
   <body>
+    <%= image_tag(@logo.url["small"]) %>
+    <%= @logo.likes %>
   <% flash.each do |type, msg| %>
     <div>
       <%= msg %>

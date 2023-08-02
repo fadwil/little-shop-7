@@ -33,3 +33,4 @@ coverage
 
 .DS_Store
 spec/examples.txt
+/env.yml
