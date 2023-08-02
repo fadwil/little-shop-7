@@ -112,6 +112,12 @@ RSpec.describe "/admin /merchants", type: :feature do
     end
 
     it "shows top 5 merchants by total revenue with revenue generated next to each merchant name" do
+      InvoiceItem.destroy_all
+      Transaction.destroy_all
+      Invoice.destroy_all
+      Item.destroy_all
+      Merchant.destroy_all
+      Customer.destroy_all
       merchant_1 = Merchant.create(name: "Merchant 1")
       merchant_2 = Merchant.create(name: "Merchant 2")
       merchant_3 = Merchant.create(name: "Merchant 3")

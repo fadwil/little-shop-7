@@ -7,7 +7,8 @@ RSpec.describe Customer, type: :model do
   end
 
   describe "class methods" do
-    before(:each) do
+
+    it ".top_customers_with_transactions" do
       InvoiceItem.destroy_all
       Transaction.destroy_all
       Invoice.destroy_all
@@ -62,9 +63,6 @@ RSpec.describe Customer, type: :model do
       @transaction_11 = Transaction.create!(invoice_id: @invoice_11.id, credit_card_number: "8154916084080022", credit_card_expiration_date: "05/01", result: "success")
       @transaction_12 = Transaction.create!(invoice_id: @invoice_12.id, credit_card_number: "1191993766451254", credit_card_expiration_date: "06/01", result: "failed")
       @transaction_13 = Transaction.create!(invoice_id: @invoice_13.id, credit_card_number: "2079801981307339", credit_card_expiration_date: "07/01", result: "failed")
-    end
-
-    it ".top_customers_with_transactions" do
       expected = [@customer_1, @customer_2, @customer_3, @customer_4, @customer_5]
       expect(Customer.top_customers_with_transactions).to eq(expected)
       expect(Customer.top_customers_with_transactions).to_not eq([@customer_6, @customer_7])

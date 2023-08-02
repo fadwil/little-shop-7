@@ -2,6 +2,12 @@ require 'rails_helper'
 
 RSpec.describe 'Admin Dashboard', type: :feature do
   before(:each) do
+    InvoiceItem.destroy_all
+    Transaction.destroy_all
+    Invoice.destroy_all
+    Item.destroy_all
+    Merchant.destroy_all
+    Customer.destroy_all
     @merchant_1 = Merchant.create!(name: "Walmart")
       @item_1 = Item.create!(name: "Bicycle", description: "It has 2 wheels and pedals.", unit_price: 500, merchant_id: @merchant_1.id)
       @customer_1 = Customer.create!(first_name: "Dan", last_name: "Smith")
@@ -62,7 +68,7 @@ RSpec.describe 'Admin Dashboard', type: :feature do
     expect(page).to have_link("Invoices", href: "/admin/invoices")
   end
 
-  xit 'displays the names of the top 5 customers with purchase amounts' do
+  it 'displays the names of the top 5 customers with purchase amounts' do
     expect(page).to have_content("Top Customers")
     expect(page).to have_content("Dan Smith - 3 Purchases")
     expect(page).to have_content("Will Smoth - 3 Purchases")
