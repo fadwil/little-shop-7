@@ -27,8 +27,6 @@ class Admin::MerchantsController < ApplicationController
     if merchant.update(merchant_params)
       flash[:notice] = "Merchant updated successfully"
       redirect_to "/admin/merchants/#{merchant.id}"
-    else
-      render :edit
     end
   end
 
@@ -42,8 +40,6 @@ class Admin::MerchantsController < ApplicationController
 
     if @merchant.save
       redirect_to "/admin/merchants", notice: "Merchant created successfully."
-    else
-      render :new
     end
   end
 
