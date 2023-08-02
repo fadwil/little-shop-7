@@ -17,15 +17,13 @@ RSpec.describe Invoice, type: :model do
   end
 
   describe "instance methods" do
-
-
     before(:each) do
-      Customer.destroy_all
       InvoiceItem.destroy_all
+      Transaction.destroy_all
       Invoice.destroy_all
       Item.destroy_all
       Merchant.destroy_all
-      Transaction.destroy_all
+      Customer.destroy_all
   
       10.times do
         Customer.create!(
@@ -53,9 +51,9 @@ RSpec.describe Invoice, type: :model do
       Customer.all.each do |customer|
         5.times do
           invoice = customer.invoices.create!(
-            status: ['cancelled', 'completed', 'in_progress'].sample
+            status: ['cancelled', 'completed', 'in progress'].sample
           )
-          @invoice_1 = customer.invoices.create!(status: :in_progress, created_at: "2012-03-25 09:54:09 UTC")
+          @invoice_1 = customer.invoices.create!(status: 0, created_at: "2012-03-25 09:54:09 UTC")
   
           Item.all.sample(5).each do |item|
             invoice.invoice_items.create!(
@@ -73,14 +71,15 @@ RSpec.describe Invoice, type: :model do
           )
         end
       end
+    end
    
     it "can format the created_at date of an invoice" do
-      invoice = Invoice.create!(customer_id: 3, status: "completed", created_at: "2012-03-25 09:54:09 UTC")
+      invoice = Invoice.create!(customer_id: Customer.all.sample.id, status: "completed", created_at: "2012-03-25 09:54:09 UTC")
       expect(invoice.format_created_at).to eq("Sunday, March 25, 2012")
     end
 
     it "can determine if any transactions were successful" do
-      invoice = Invoice.create!(customer_id: 3, status: "completed", created_at: "2012-03-25 09:54:09 UTC")
+      invoice = Invoice.create!(customer_id: Customer.all.sample.id, status: "completed", created_at: "2012-03-25 09:54:09 UTC")
       expect(invoice.transactions_successful?).to eq false
       transaction = invoice.transactions.create!(result: "success")
       expect(invoice.transactions_successful?).to eq true

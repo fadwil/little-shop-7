@@ -7,7 +7,7 @@
   <% @top_merchants_with_dates.each do |data| %>
     <li>
       <%= link_to data[:merchant].name, "/admin/merchants/#{data[:merchant].id}" %> -
-      <%= number_to_currency(data[:merchant].revenue.to_f) %> in sales </br>
+      <%= number_to_currency(data[:merchant].revenue.to_f) %> in sales <br/>
       <% if data[:top_selling_date] %>
         Top day for <%= data[:merchant].name %> was <%= data[:top_selling_date].strftime('%m/%d/%y') %>
       <% else %>

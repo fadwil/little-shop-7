@@ -2,6 +2,12 @@ require 'rails_helper'
 
 RSpec.describe 'Admin Dashboard', type: :feature do
   before(:each) do
+    InvoiceItem.destroy_all
+    Transaction.destroy_all
+    Invoice.destroy_all
+    Item.destroy_all
+    Merchant.destroy_all
+    Customer.destroy_all
     @merchant_1 = Merchant.create!(name: "Walmart")
       @item_1 = Item.create!(name: "Bicycle", description: "It has 2 wheels and pedals.", unit_price: 500, merchant_id: @merchant_1.id)
       @customer_1 = Customer.create!(first_name: "Dan", last_name: "Smith")
@@ -22,8 +28,8 @@ RSpec.describe 'Admin Dashboard', type: :feature do
       @invoice_9 = Invoice.create!(status: "completed", customer_id: @customer_4.id)
       @invoice_10 = Invoice.create!(status: "completed", customer_id: @customer_4.id)
       @invoice_11 = Invoice.create!(status: "completed", customer_id: @customer_5.id)
-      @invoice_12 = Invoice.create!(status: "in_progress", customer_id: @customer_6.id)
-      @invoice_13 = Invoice.create!(status: "in_progress", customer_id: @customer_7.id)
+      @invoice_12 = Invoice.create!(status: "in progress", customer_id: @customer_6.id)
+      @invoice_13 = Invoice.create!(status: "in progress", customer_id: @customer_7.id)
       @invoice_item_1 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_1.id, quantity: 5, unit_price: 25000, status: "shipped")
       @invoice_item_2 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_2.id, quantity: 5, unit_price: 25000, status: "shipped")
       @invoice_item_3 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_3.id, quantity: 5, unit_price: 25000, status: "shipped")
@@ -62,7 +68,7 @@ RSpec.describe 'Admin Dashboard', type: :feature do
     expect(page).to have_link("Invoices", href: "/admin/invoices")
   end
 
-  xit 'displays the names of the top 5 customers with purchase amounts' do
+  it 'displays the names of the top 5 customers with purchase amounts' do
     expect(page).to have_content("Top Customers")
     expect(page).to have_content("Dan Smith - 3 Purchases")
     expect(page).to have_content("Will Smoth - 3 Purchases")
