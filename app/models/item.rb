@@ -15,11 +15,12 @@ class Item < ApplicationRecord
   end
 
   def top_selling_date
-    invoices.joins(:invoice_items)
+    invoices.joins(invoice_items: :item)
+      .where(items: { id: id })
       .group('DATE(invoices.created_at), invoices.id, invoices.status, invoices.created_at, invoices.updated_at, invoices.customer_id')
       .select('invoices.*, SUM(invoice_items.quantity) AS number_sold')
       .order('number_sold DESC')
       .limit(1)
       .first
-    end
+  end
 end

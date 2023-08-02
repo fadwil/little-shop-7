@@ -6,11 +6,14 @@ class Merchants::ItemsController < ApplicationController
   end
 
   def update
-    # binding.pry;
     @merchant = Merchant.find(params[:merchant_id])
     @item = Item.find(params[:id])
-    @item.update(item_params)
-      redirect_to merchant_items_path(@merchant), notice: 'Item status updated successfully.'
+    if params[:item].present?
+      @item.update(item_status_params)
+    else
+      @item.update(item_params)
+    end
+    redirect_to merchant_items_path(@merchant), notice: 'Item status updated successfully.'
   end
 
   def edit
@@ -20,7 +23,6 @@ class Merchants::ItemsController < ApplicationController
 
   def new
     @merchant = Merchant.find(params[:merchant_id])
-    # binding.pry;
   end
 
 
@@ -38,16 +40,13 @@ class Merchants::ItemsController < ApplicationController
       @item = Item.find(params[:id])
   end
 
+  
   private
-
-
   def item_params
     params.permit(:name, :description, :unit_price, :merchant_id, :status)
   end
 
   def item_status_params
-    params.require(:items).permit(:status)
+    params.require(:item).permit(:status)
   end
-
-
 end

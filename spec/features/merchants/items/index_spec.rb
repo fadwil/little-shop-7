@@ -20,7 +20,6 @@ RSpec.describe "merchants/:merchant_id/items index" do
         @merchant_1 = Merchant.first
         @merchant_2 = Merchant.last
         visit merchant_items_path(@merchant_1)
-        # binding.pry;
 
         expect(page).to have_content("#{@merchant_1.name}'s Items")
         expect(page).to have_content(@merchant_1.items.sample.name)
@@ -35,7 +34,6 @@ RSpec.describe "merchants/:merchant_id/items index" do
             expect(page).to have_content("disabled")
             
             click_button "Enable"
-            # save_and_open_page
             expect(current_path).to eq(merchant_items_path(@merchant_1))
             expect(page).to have_content("enabled")
             expect(page).to_not have_content("disabled")
@@ -92,7 +90,6 @@ RSpec.describe "merchants/:merchant_id/items index" do
         invoice_item_7 = InvoiceItem.create!(item_id: item_7.id, invoice_id: invoice_2.id, quantity: 3, unit_price: 95000, status: "pending")
         invoice_item_8 = InvoiceItem.create!(item_id: item_8.id, invoice_id: invoice.id, quantity: 3, unit_price: 100000, status: "pending")
         expect(merchant.top_items).to eq([item_6, item_4, item_5, item_3, item_2])
-        
 
         visit merchant_items_path(merchant)
 
@@ -147,7 +144,6 @@ RSpec.describe "merchants/:merchant_id/items index" do
 
         expect(page).to have_link("A new item")
                 
-
         click_link("A new item")
 
         expect(page).to have_content("A new item")

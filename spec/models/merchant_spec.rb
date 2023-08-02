@@ -3,7 +3,6 @@ require "rails_helper"
 RSpec.describe Merchant, type: :model do
   test_csv_load
   before(:each) do
-
     @merchant_1 = Merchant.first
     @merchant_2 = Merchant.find(2)
     @merchant_1_items = Item.find(15,9,10,12,1,2,3,4,6)
