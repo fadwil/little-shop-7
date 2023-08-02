@@ -12,6 +12,7 @@
 <% @merchant.top_items.each do |item| %>
   <b><i> <%= link_to item.name, merchant_item_path(@merchant, item) %> </b></i>
   <p>Total revenue generated for <%= item.name %>: <%= item.total_revenue %></p>
+  <p>Top selling date for <%= item.name %> was <%= item.top_selling_date.format_created_at %></p>
   <p>----------------------------------------</p>
 <% end %>
 </div>

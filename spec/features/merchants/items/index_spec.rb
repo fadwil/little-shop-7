@@ -165,6 +165,7 @@ RSpec.describe "merchants/:merchant_id/items index" do
       invoice_item_9 = InvoiceItem.create!(item_id: item_4.id, invoice_id: invoice_3.id, quantity: 9, unit_price: 60000, status: "pending")
       visit merchant_items_path(merchant)
 
+      save_and_open_page
       within "#Top_items" do
           expect(page).to have_content("Top selling date for #{item_6.name} was #{item_6.top_selling_date.format_created_at}")
           expect(page).to have_content("Top selling date for #{item_5.name} was #{item_5.top_selling_date.format_created_at}")
