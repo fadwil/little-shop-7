@@ -1,5 +1,8 @@
+
 <section id="merchant_info">
-<%= @merchant.name %>
+<%= render partial: "partials/merchant_header" %>
+</section>
+<h1><%= @merchant.name %></h1>
 </section>
 <section id="dashboard_nav">
 <%= link_to "My Items", merchant_items_path %>

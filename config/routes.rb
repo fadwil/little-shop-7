@@ -25,5 +25,7 @@ Rails.application.routes.draw do
     resources :invoice_items, only: [:edit, :update], controller: "merchants/invoice_items"
     resources :items, controller: "merchants/items"
   end
+
+  resources :photos, only: [:index], controller: "photos"
 end
 

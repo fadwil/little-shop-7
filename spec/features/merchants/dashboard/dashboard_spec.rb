@@ -17,13 +17,18 @@ RSpec.describe 'Merchant Dashboard', type: :feature do
     end
     describe 'As a Merchant' do
         describe 'When I visit my merchant dashboard (/merchants/:merchant_id/dashboard)' do
-            it 'Shows the name of my merchant' do
+
+            it 'Shows the name of my merchant with an image' do
                 visit merchant_dashboard_index_path(@merchant_1.id)
+
+                
 
                 within "#merchant_info" do
                     expect(page).to have_content(@merchant_1.name)
+                    expect(page).to have_css('img')
                 end
             end
+
 
             it 'Has a link to my merchant items index and my merchant invoice index' do
                 visit merchant_dashboard_index_path(@merchant_1.id)
