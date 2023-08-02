@@ -5,3 +5,31 @@
 <p>Created at: <%= @invoice.format_created_at %></p>
 <p>Customer name: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
 </div>
+<p> ----------------------------------------------- </p>
+
+<div id="Total_revenue">
+<strong> Total revenue from items sold: <%= @merchant.total_revenue_for_invoice(@invoice.id) if @invoice.transactions_successful? %> </strong>
+</div>
+
+<p> ----------------------------------------------- </p>
+<br/>
+<h3> Items </h3>
+<br/>
+<div id="Items">
+<% @merchant.items_sold_in_invoice(@invoice.id).each do |item| %>
+  <div id=<%= item.name %>>
+  <p> Item: <%= item.name %></p>
+  <% item.invoice_items.each do |invoice_item| %>
+    <p> Quantity sold: <%= invoice_item.quantity %></p>
+    <p> Unit price: <%= invoice_item.unit_price %></p>
+    <p> Status: <%= invoice_item.status %></p>
+    <p> Update invoice item status: </p>
+    <p><%= form_with model: invoice_item, url: merchant_invoice_item_path(@merchant, @invoice, invoice_item), local: true do |form| %> </p>
+      <%= form.hidden_field :id, value: invoice_item.id %>
+      <%= form.select :status, options_for_select(InvoiceItem.statuses.keys, selected: invoice_item.status) %>
+      <%= form.submit "Update Item Status" %>
+    <% end %>
+    <p> ----------------------------------------------- </p>
+    </div>
+  <% end %>
+<% end %>

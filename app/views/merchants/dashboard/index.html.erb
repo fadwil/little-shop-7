@@ -2,6 +2,23 @@
 <%= @merchant.name %>
 </section>
 <section id="dashboard_nav">
-<%= link_to "My Items", "/merchants/:merchant_id/items" %>
-<%= link_to "My Invoices", "/merchants/:merchant_id/invoices" %>
+<%= link_to "My Items", merchant_items_path %>
+<%= link_to "My Invoices", merchant_invoices_path %>
+</section>
+<section id="dashboard_stats">
+<% @merchant.top_customers.each do |customer| %>
+    <br>
+    <%= customer.first_name + " " + customer.last_name + ":  " + customer.successful_transactions_count.to_s %>
+    <br>
+<% end %>
+</section>
+<section id="dashboard_items_status">
+<% @merchant.items_status.each do |item| %>
+    <section id="item_<%= item.id %>">
+    <br>
+    <%= item.name   %>
+    <%= link_to "#{item.invoice_id}", "/merchants/#{@merchant.id}/invoices/#{item.invoice_id}" %>
+    <%= item.invoice_created.strftime("%A, %B %d, %Y") %>
+    </section>
+<% end %>
 </section>

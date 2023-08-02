@@ -140,3 +140,53 @@ def test_csv_load
   
   
 end
+
+def top_customers_test_csv_load
+
+  InvoiceItem.destroy_all
+  Transaction.destroy_all
+  Invoice.destroy_all
+  Item.destroy_all
+  Merchant.destroy_all
+  Customer.destroy_all
+  
+  
+  csv_text = File.read("spec/fixtures/top_customers_test/customer_test.csv")
+  csv = CSV.parse(csv_text, :headers => true, header_converters: :symbol)
+  csv.each do |row|
+    Customer.create(row)
+  end
+
+  csv_text = File.read("spec/fixtures/top_customers_test/merchant_test.csv")
+  csv = CSV.parse(csv_text, :headers => true, header_converters: :symbol)
+  csv.each do |row|
+    Merchant.create(row)
+  end
+
+  csv_text = File.read("spec/fixtures/top_customers_test/invoice_test.csv")
+  csv = CSV.parse(csv_text, :headers => true, header_converters: :symbol)
+  csv.each do |row|
+    Invoice.create(row)
+  end
+
+  csv_text = File.read("spec/fixtures/top_customers_test/item_test.csv")
+  csv = CSV.parse(csv_text, :headers => true, header_converters: :symbol)
+  csv.each do |row|
+    Item.create(row)
+  end
+
+  csv_text = File.read("spec/fixtures/top_customers_test/invoice_item_test.csv")
+  csv = CSV.parse(csv_text, :headers => true, header_converters: :symbol)
+  csv.each do |row|
+    InvoiceItem.create(row)
+  end
+
+  csv_text = File.read("spec/fixtures/top_customers_test/transaction_test.csv")
+  csv = CSV.parse(csv_text, :headers => true, header_converters: :symbol)
+  csv.each do |row|
+    Transaction.create(row)
+  end
+  
+  
+  
+end

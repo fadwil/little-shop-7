@@ -1,0 +1,59 @@
+<%= @merchant.name %>
+<br>
+<% @items.each do |item| %>
+    <br>
+    <%= link_to "#{item.name}", merchant_item_path(@merchant, item) %>
+<% end %>
+<br>
+<%= link_to "Create New Item", new_merchant_item_path  %><h1><%= @merchant.name %>'s Items </h1>
+
+<div id="Top_items">
+<h2>Top items:</h2>
+<% @merchant.top_items.each do |item| %>
+  <b><i> <%= link_to item.name, merchant_item_path(@merchant, item) %> </b></i>
+  <p>Total revenue generated for <%= item.name %>: <%= item.total_revenue %></p>
+  <p>Top selling date for <%= item.name %> was <%= item.top_selling_date.format_created_at %></p>
+  <p>----------------------------------------</p>
+<% end %>
+</div>
+
+
+
+<strong>----------------------------------------</strong>
+<div id="Enabled">
+<h3>Enabled items:</h3>
+<% @merchant.items.each do |item| %>
+<% if item.status == "enabled" %>
+<div id="item_<%= item.id %>">
+  <b><i> <%= item.name %> </b></i>
+  <p> <%= item.status %> </p>
+  <p><%= form_with model: item, url: merchant_item_path(@merchant, item), local: true do |form| %> </p>
+        <%= form.button type: :submit, name: "item[status]", value: "disabled" do %>
+          Disable
+        <% end %>
+  <% end %>
+</div>
+  <p>----------------------------------------</p>
+<% end %>
+<% end %>
+</div>
+
+<strong>----------------------------------------</strong>
+<div id="Disabled">
+<h3>Disabled items:</h3>
+<% @merchant.items.each do |item| %>
+<% if item.status == "disabled" %>
+<div id="item_<%= item.id %>">
+  <b><i> <%= item.name %> </b></i>
+  <p> <%= item.status %> </p>
+  <p><%= form_with url: merchant_item_path(@merchant, item), method: :patch, local: true do |form| %> </p>
+        <%= form.button type: :submit, name: "item[status]", value: "enabled" do %>
+          Enable
+        <% end %>
+  <% end %>
+</div>
+  <p>----------------------------------------</p>
+<% end %>
+<% end %>
+</div>
+

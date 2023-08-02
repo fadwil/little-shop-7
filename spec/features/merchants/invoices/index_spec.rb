@@ -1,6 +1,9 @@
 require "rails_helper"
 
 RSpec.describe "merchants/:merchant_id/invoices index" do
+
+  test_csv_load
+
   before(:each) do
     Customer.destroy_all
     InvoiceItem.destroy_all
@@ -55,9 +58,9 @@ RSpec.describe "merchants/:merchant_id/invoices index" do
       end
     end
   end
-
   it "displays all invoices that show at least one merchant item and each ID links to invoice show page" do
-    merchant = Merchant.all.sample
+    
+    merchant = Merchant.first
     visit merchant_invoices_path(merchant)
 
     expect(page).to have_content("#{merchant.name}'s Invoices")

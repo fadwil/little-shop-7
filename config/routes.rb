@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
-
   resources :admin, controller: 'admin/dashboard', only: [:index]
 
   namespace :admin do
@@ -20,16 +19,11 @@ Rails.application.routes.draw do
 
 # Merchant stuff
 
-
-  
   resources :merchants, only: [:show] do
-    resources :dashboard, only: [:index], controller: 'merchants/dashboard'
-  end
-
-
-  resources :merchants, only: [:show] do
+    resources :dashboard, only: [:index], controller: "merchants/dashboard"
     resources :invoices, only: [:index, :show], controller: "merchants/invoices"
+    resources :invoice_items, only: [:edit, :update], controller: "merchants/invoice_items"
+    resources :items, controller: "merchants/items"
   end
-
 end
 

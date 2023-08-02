@@ -1,0 +1,19 @@
+<section id="item_update">
+<h1>Edit Merchant</h1>
+
+
+<%= form_with url: merchant_item_path, method: :patch, local: true do |f| %>
+
+    <%= f.label "Item Name" %>
+    <%= f.text_field :name %>
+    <br>
+    <%= f.label "Item Description" %>
+    <%= f.text_field :description %>
+    <br>
+    <%= f.label "Item Price" %>
+    <%= f.text_field :unit_price %>
+    <%= f.submit "Update Item"  %>
+
+<% end %>
+
+</section>
