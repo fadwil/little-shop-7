@@ -24,7 +24,7 @@
   <tbody>
     <% @incomplete_invoices.each do |invoice| %>
       <tr>
-        <td>Invoice #<%= link_to "#{invoice.id}", "/admin/invoices/#{invoice.id}" %></td>
+        <td>Invoice #<%= link_to "#{invoice.id}", "/admin/invoices/#{invoice.id}" %> - <%= invoice.created_at.strftime("%A, %B %d, %Y") %></td>
       </tr>
     <% end %>
   </tbody>
